@@ -1,0 +1,48 @@
+* {
+  font-family: sans-serif;
+  padding: 5px;
+}
+
+header {
+  background-color: #4b2373;
+  color: white;
+  padding: 15px;
+}
+
+img {
+  width: 100%;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+label {
+  display: block;
+}
+
+input,
+textarea {
+  width: 100%;
+}
+
+textarea {
+  height: 130px;
+}
+
+.row {
+  font-weight: bold;
+}
+
+input,
+textarea:focus {
+  outline-color: #4b2373;
+  width: 100%;
+}
+
+button {
+  cursor: pointer;
+  color: white;
+  background-color: #4b2373;
+}
