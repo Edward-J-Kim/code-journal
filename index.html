@@ -9,8 +9,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Proza+Libre:wght@500&display=swap"
-    rel="stylesheet">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
@@ -19,41 +17,44 @@
 <body>
   <header>
     <div class="container">
-      <nav class="navbar column-full">
-        <span>Code Journal</span>
-      </nav>
+      <span>Code Journal</span>
+      <span class="menu-entries">Entries</span>
     </div>
   </header>
   <main class="container">
-    <div data-view="entry-form">
-      <form id="information">
-        <div class="row">
-          <div class="column-full">
-            <h1>New Entry</h1>
+    <div data-view="entry-form" class="entry-form">
+      <form>
+        <div class="new-entry">New Entry</div>
+        <div class="display">
+          <div class="image"><img src="./images/placeholder-image-square.jpg" alt="placeholderImg"></div>
+          <div class="inputs">
+            <label class="minor-heading" for="title">Title</label>
+            <div><input name="title" class="small-box" type="text" id="title" required></div>
+            <label class="minor-heading" for="image-url">Photo URL</label>
+            <div><input name="image" class="small-box" type="text" id="image-url" required></div>
           </div>
         </div>
-        <div class="row">
-          <div class="column-half">
-            <img src="images/placeholder-image-square.jpg" id="imgshow" alt="placeholderImg">
-          </div>
-          <div class="column-half">
-            <label for="user-title">Title</label>
-            <input required name="title" type="text" id="user-title" />
-            <label for="user-url">Photo URL</label>
-            <input required name="url" type="text" id="user-photo-url" />
-          </div>
-          <div class="column-full">
-            <label for="user-notes">Notes</label>
-            <textarea required name="notes" id="user-notes"></textarea>
-            <div class="form-actions">
-              <button type="submit">SAVE</button>
-            </div>
+        <div>
+          <label class="minor-heading" for="user-notes">Notes</label>
+          <div>
+            <textarea name="notes" class="large-box" rows="5" id="user-notes" required></textarea>
           </div>
         </div>
-
+        <div class="button">
+          <button id="submit" type="submit">SAVE</button>
+        </div>
       </form>
     </div>
-    <div data-view="entries" class="hidden"></div>
+    <div id="entries-page" data-view="entries" class="entries-desktop">
+      <div class="is-flex is-justify-content-space-between">
+        <div class="entries-header"><span>Entries</span></div>
+        <button class="new-entries" type="submit">NEW</button>
+      </div>
+      <div>
+        <ul class="all-entries"></ul>
+        <p id="no-entries-paragraph" class="entries has-entries has-display-none">No entries have been recorded.</p>
+      </div>
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
