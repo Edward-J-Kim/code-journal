@@ -1,0 +1,51 @@
+* {
+  font-family: Lato, sans-serif;
+}
+
+header {
+  background-color: #4b2373;
+  color: white;
+  padding: 15px;
+  font-family:
+    "Proza Libre",
+    sans-serif;
+}
+
+img {
+  width: 100%;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+label {
+  display: block;
+}
+
+input,
+textarea {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+textarea {
+  height: 130px;
+}
+
+.row {
+  font-weight: bold;
+}
+
+input,
+textarea:focus {
+  outline-color: #4b2373;
+  width: 100%;
+}
+
+button {
+  cursor: pointer;
+  color: white;
+  background-color: #4b2373;
+}
