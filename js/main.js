@@ -1,17 +1,21 @@
-const div = document.querySelector('.all-entries');
-const photoURL = document.getElementById('image-url');
-const entriesPage = document.getElementById('entries-page');
+const $ul = document.querySelector('.all-entries');
+const $photoURL = document.getElementById('image-url');
+const $entriesPage = document.getElementById('entries-page');
+const $img = document.querySelector('img');
+const $entryForm = document.querySelector('.entry-form');
+const ul = document.querySelector('ul.all-entries');
+const noEntriesParagraph = document.getElementById('no-entries-paragraph');
 
-photoURL.addEventListener('input', function (event) {
-  const img = document.querySelector('img');
-  img.src = event.target.value;
+$photoURL.addEventListener('input', function (event) {
+
+  $img.src = event.target.value;
 });
-const submitForm = document.querySelector('form');
-submitForm.addEventListener('submit', function (event) {
+const $submitForm = document.querySelector('form');
+$submitForm.addEventListener('submit', function (event) {
   event.preventDefault();
-  const title = submitForm.elements.title.value;
-  const image = submitForm.elements.image.value;
-  const notes = submitForm.elements.notes.value;
+  const title = $submitForm.elements.title.value;
+  const image = $submitForm.elements.image.value;
+  const notes = $submitForm.elements.notes.value;
   const newObject = {
     title,
     image,
@@ -20,48 +24,48 @@ submitForm.addEventListener('submit', function (event) {
   };
   data.entries.unshift(newObject);
   data.nextEntryId++;
-  const img = document.querySelector('img');
-  img.src = './images/placeholder-image-square.jpg';
-  submitForm.reset();
+  $img.src = './images/placeholder-image-square.jpg';
+  $submitForm.reset();
 
   const newEntry = renderEntry(newObject);
-  div.prepend(newEntry);
+  $ul.prepend(newEntry);
   viewSwap('entries');
 });
 
 function renderEntry(entry) {
 
-  const ul = document.createElement('ul');
-  ul.setAttribute('class', 'is-flex');
-
-  const imageLi = document.createElement('li');
-  imageLi.setAttribute('class', 'column-one-half');
-  ul.appendChild(imageLi);
+  const uli = document.createElement('li');
+  uli.setAttribute('class', 'is-flex');
 
   const imageDiv = document.createElement('div');
-  imageLi.appendChild(imageDiv);
+  imageDiv.setAttribute('class', 'column-one-half');
+  uli.appendChild(imageDiv);
+
+  const imageDivContainer = document.createElement('div');
+  imageDiv.appendChild(imageDivContainer);
 
   const image = document.createElement('img');
   image.setAttribute('class', 'image-entry-desktop');
+  image.setAttribute('alt', 'Image Description'); // Replace 'Image Description' with an appropriate description
   image.setAttribute('src', entry.image);
   imageDiv.appendChild(image);
 
-  const textLi = document.createElement('li');
-  textLi.setAttribute('class', 'column-one-half padding');
-  ul.appendChild(textLi);
-
   const textDiv = document.createElement('div');
-  textLi.appendChild(textDiv);
+  textDiv.setAttribute('class', 'column-one-half padding');
+  uli.appendChild(textDiv);
+
+  const textDivContainer = document.createElement('div');
+  textDiv.appendChild(textDivContainer);
 
   const title = document.createElement('h3');
   title.textContent = entry.title;
-  textDiv.appendChild(title);
+  textDivContainer.appendChild(title);
 
   const notes = document.createElement('p');
   notes.textContent = entry.notes;
-  textDiv.appendChild(notes);
+  textDivContainer.appendChild(notes);
 
-  return ul;
+  return uli;
 }
 
 document.addEventListener('DOMContentLoaded', function (event) {
@@ -71,39 +75,36 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
   viewSwap('entry-form');
 
-  document.getElementById('no-entries-paragraph').className = 'has-display-block';
+  noEntriesParagraph.className = 'has-display-block';
 
   for (let i = 0; i < data.entries.length; i++) {
     const dataEntry = renderEntry(data.entries[i]);
-    div.appendChild(dataEntry);
+    ul.appendChild(dataEntry);
   }
 });
 
 function toggleNoEntries(event) {
 
   if (data.entries.length === 0) {
-    entriesPage.className = 'has-display-none ';
+    $entriesPage.className = 'has-display-none ';
   } else {
-    entriesPage.className = 'entries-desktop';
+    $entriesPage.className = 'entries-desktop';
   }
 }
 
 function viewSwap(view) {
-  const entryForm = document.querySelector('.entry-form');
-
   if (view === 'entries') {
-    entryForm.style.display = 'none';
-    entriesPage.className = 'entries-desktop';
+    $entryForm.style.display = 'none';
+    $entriesPage.className = 'entries-desktop';
 
     if (data.entries.length > 0) {
-      document.getElementById('no-entries-paragraph').className = 'has-display-none';
-
+      noEntriesParagraph.className = 'has-display-none';
     }
   }
 
   if (view === 'entry-form') {
-    entryForm.style.display = 'block';
-    entriesPage.className = 'has-display-none';
+    $entryForm.style.display = 'block';
+    $entriesPage.className = 'has-display-none';
   }
 }
 

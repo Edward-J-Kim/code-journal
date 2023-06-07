@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
   <header>
     <div class="container">
@@ -25,16 +26,16 @@
       <form>
         <div class="new-entry">New Entry</div>
         <div class="display">
-          <div class="image"><img src="./images/placeholder-image-square.jpg"></div>
+          <div class="image"><img src="./images/placeholder-image-square.jpg" alt="placeholderImg"></div>
           <div class="inputs">
-            <div class="minor-heading">Title</div>
+            <label class="minor-heading" for="title">Title</label>
             <div><input name="title" class="small-box" type="text" id="title" required></div>
-            <div class="minor-heading">Photo URL</div>
+            <label class="minor-heading" for="image-url">Photo URL</label>
             <div><input name="image" class="small-box" type="text" id="image-url" required></div>
           </div>
         </div>
         <div>
-          <div class="minor-heading">Notes</div>
+          <label class="minor-heading" for="user-notes">Notes</label>
           <div>
             <textarea name="notes" class="large-box" rows="5" id="user-notes" required></textarea>
           </div>
@@ -42,15 +43,15 @@
         <div class="button">
           <button id="submit" type="submit">SAVE</button>
         </div>
-
       </form>
     </div>
     <div id="entries-page" data-view="entries" class="entries-desktop">
-      <div class="is-flex is-justify-content-space-between ">
+      <div class="is-flex is-justify-content-space-between">
         <div class="entries-header"><span>Entries</span></div>
         <div id="new-button"><button class="new-entries" type="submit">NEW</button></div>
       </div>
-      <div class="all-entries">
+      <div>
+        <ul class="all-entries"></ul>
         <p id="no-entries-paragraph" class="entries has-entries has-display-none">No entries have been recorded.</p>
       </div>
     </div>
@@ -58,4 +59,5 @@
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>
+
 </html>
