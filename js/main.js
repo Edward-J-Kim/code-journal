@@ -61,6 +61,20 @@ $submitForm.addEventListener('submit', function (event) {
   $submitForm.reset();
 });
 
+ul.addEventListener('click', function (event) {
+  const clickedEntryId = event.target.attributes['data-entry-id'].value;
+
+  viewSwap('entry-form');
+
+  for (let i = 0; i < data.entries.length; i++) {
+    if (parseInt(data.entries[i].entryId) === parseInt(clickedEntryId)) {
+      data.editing = data.entries[i];
+    }
+  }
+
+  populateEntryForm();
+});
+
 function renderEntry(entry) {
   const uli = document.createElement('li');
   uli.setAttribute('class', 'is-flex');
@@ -97,20 +111,6 @@ function renderEntry(entry) {
   pencil.setAttribute('data-entry-id', entry.entryId);
   textDivContainer.appendChild(pencil);
 
-  ul.addEventListener('click', function (event) {
-    const clickedEntryId = event.target.attributes['data-entry-id'].value;
-
-    viewSwap('entry-form');
-
-    for (let i = 0; i < data.entries.length; i++) {
-      if (parseInt(data.entries[i].entryId) === parseInt(clickedEntryId)) {
-        data.editing = data.entries[i];
-      }
-    }
-
-    populateEntryForm();
-  });
-
   return uli;
 }
 
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
     toggleNoEntries();
   }
 
-  viewSwap('entry-form');
+  viewSwap('data.entries');
 
   noEntriesParagraph.className = 'has-display-block';
 
@@ -164,15 +164,6 @@ function populateEntryForm() {
   const editTitle = document.querySelector('.new-entry');
   editTitle.textContent = 'Edit Entry';
 }
-
-// function updateOriginalEntry(entry, entryId) {
-//   const entries = document.getElementsByTagName('ul');
-//   for (const i in entries) {
-//     if (entries[i].attributes && parseInt(entries[i].attributes['data-entry-id'].value) === parseInt(entryId)) {
-//       entries[i].replaceWith(entry);
-//     }
-//   }
-// }
 
 entriesLink.addEventListener('click', function (event) {
   viewSwap('entries');
