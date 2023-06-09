@@ -175,3 +175,10 @@ newEntry.addEventListener('click', function (event) {
   editTitle.textContent = 'New Entry';
   viewSwap('entry-form');
 });
+
+// const newEntry = document.querySelector('.new-entries');
+// newEntry.addEventListener('click', function (event) {
+//   const editTitle = document.querySelector('.new-entry');
+//   editTitle.textContent = 'New Entry';
+//   viewSwap('entry-form');
+// });
