@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
     toggleNoEntries();
   }
 
-  viewSwap('data.entries');
+  viewSwap('data.view');
 
   noEntriesParagraph.className = 'has-display-block';
 
