@@ -59,6 +59,16 @@ img {
   justify-content: flex-end;
 }
 
+.text-div {
+  display: flex;
+  justify-content: space-between;
+}
+
+i {
+  padding-top: 20px;
+  color: #8c6cae;
+}
+
 button {
   font-family: "Proza Libre", sans-serif;
   font-size: 16px;
@@ -145,10 +155,6 @@ textarea:focus {
     display: flex;
   }
 
-  .image-desktop {
-    float: left;
-  }
-
   .is-flex {
     display: flex;
   }
@@ -163,6 +169,11 @@ textarea:focus {
     min-width: 400px;
     min-height: 400px;
   }
+}
+
+p {
+  font-size: 18px;
+  font-weight: 300;
 }
 
 h3 {

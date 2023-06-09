@@ -5,6 +5,12 @@ const $img = document.querySelector('img');
 const $entryForm = document.querySelector('.entry-form');
 const ul = document.querySelector('ul.all-entries');
 const noEntriesParagraph = document.getElementById('no-entries-paragraph');
+const titleInput = document.getElementById('title');
+const imageInput = document.getElementById('image-url');
+const notesInput = document.getElementById('user-notes');
+const entriesLink = document.querySelector('.menu-entries');
+
+const img = document.querySelector('.display .image').firstChild;
 
 $photoURL.addEventListener('input', function (event) {
   $img.src = event.target.value;
@@ -21,6 +27,7 @@ $submitForm.addEventListener('submit', function (event) {
     image,
     notes
   };
+
   if (data.editing === null) {
     newObject.entryId = data.nextEntryId;
     data.nextEntryId++;
@@ -29,24 +36,29 @@ $submitForm.addEventListener('submit', function (event) {
     $ul.prepend(newEntry);
 
   } else {
-    newObject.entryId = data.editing.entryId;
-
-    for (let i = 0; i < data.entries.length; i++) {
-      if (data.entries[i].entryId === newObject.entryId) {
-        data.entries[i] = newObject;
+    const editedEntryId = data.editing.entryId;
+    const editedEntry = {
+      title,
+      image,
+      notes,
+      entryId: editedEntryId
+    };
+    const index = data.entries.findIndex(entry => entry.entryId === editedEntryId);
+    if (index !== -1) {
+      data.entries[index] = editedEntry;
+      const updatedEntry = renderEntry(editedEntry);
+      const liToUpdate = $ul.querySelector(`li[data-entry-id="${editedEntryId}"]`);
+      if (liToUpdate) {
+        liToUpdate.replaceWith(updatedEntry);
       }
     }
-    const updatedEntry = renderEntry(newObject);
-
-    updateOriginalEntry(updatedEntry, newObject.entryId);
-
-    viewSwap('entries');
-    $img.src = './images/placeholder-image-square.jpg';
-    $submitForm.reset();
 
     data.editing = null;
     viewSwap('entries');
   }
+
+  $img.src = './images/placeholder-image-square.jpg';
+  $submitForm.reset();
 });
 
 function renderEntry(entry) {
@@ -78,14 +90,14 @@ function renderEntry(entry) {
 
   const notes = document.createElement('p');
   notes.textContent = entry.notes;
-  textDivContainer.appendChild(notes);
+  title.appendChild(notes);
 
   const pencil = document.createElement('i');
   pencil.setAttribute('class', 'fa-solid fa-pencil');
   pencil.setAttribute('data-entry-id', entry.entryId);
-  title.appendChild(pencil);
+  textDivContainer.appendChild(pencil);
 
-  pencil.addEventListener('click', function (event) {
+  ul.addEventListener('click', function (event) {
     const clickedEntryId = event.target.attributes['data-entry-id'].value;
 
     viewSwap('entry-form');
@@ -142,11 +154,7 @@ function viewSwap(view) {
 }
 
 function populateEntryForm() {
-  const titleInput = document.getElementById('title');
-  const imageInput = document.getElementById('image-url');
-  const notesInput = document.getElementById('user-notes');
 
-  const img = document.querySelector('.display .image').firstChild;
   img.setAttribute('src', data.editing.image);
 
   titleInput.value = data.editing.title;
@@ -157,16 +165,15 @@ function populateEntryForm() {
   editTitle.textContent = 'Edit Entry';
 }
 
-function updateOriginalEntry(entry, entryId) {
-  const entries = document.getElementsByTagName('ul');
-  for (const i in entries) {
-    if (entries[i].attributes && parseInt(entries[i].attributes['data-entry-id'].value) === parseInt(entryId)) {
-      entries[i].replaceWith(entry);
-    }
-  }
-}
+// function updateOriginalEntry(entry, entryId) {
+//   const entries = document.getElementsByTagName('ul');
+//   for (const i in entries) {
+//     if (entries[i].attributes && parseInt(entries[i].attributes['data-entry-id'].value) === parseInt(entryId)) {
+//       entries[i].replaceWith(entry);
+//     }
+//   }
+// }
 
-const entriesLink = document.querySelector('.menu-entries');
 entriesLink.addEventListener('click', function (event) {
   viewSwap('entries');
 });
@@ -176,46 +183,4 @@ newEntry.addEventListener('click', function (event) {
   const editTitle = document.querySelector('.new-entry');
   editTitle.textContent = 'New Entry';
   viewSwap('entry-form');
-});
-
-$submitForm.addEventListener('submit', function (event) {
-  event.preventDefault();
-  const title = $submitForm.elements.title.value;
-  const image = $submitForm.elements.image.value;
-  const notes = $submitForm.elements.notes.value;
-
-  if (data.editing === null) {
-    const newObject = {
-      title,
-      image,
-      notes,
-      entryId: data.nextEntryId
-    };
-    data.entries.unshift(newObject);
-    data.nextEntryId++;
-    const newEntry = renderEntry(newObject);
-    $ul.prepend(newEntry);
-  } else {
-    const editedEntryId = data.editing.entryId;
-    const editedEntry = {
-      title,
-      image,
-      notes,
-      entryId: editedEntryId
-    };
-    const index = data.entries.findIndex(entry => entry.entryId === editedEntryId);
-    if (index !== -1) {
-      data.entries[index] = editedEntry;
-      const updatedEntry = renderEntry(editedEntry);
-      const liToUpdate = $ul.querySelector(`li[data-entry-id="${editedEntryId}"]`);
-      if (liToUpdate) {
-        liToUpdate.replaceWith(updatedEntry);
-      }
-    }
-    data.editing = null;
-    viewSwap('entries');
-  }
-
-  $img.src = './images/placeholder-image-square.jpg';
-  $submitForm.reset();
 });
