@@ -9,9 +9,10 @@ const titleInput = document.getElementById('title');
 const imageInput = document.getElementById('image-url');
 const notesInput = document.getElementById('user-notes');
 const entriesLink = document.querySelector('.menu-entries');
-
+const $deleteButton = document.querySelector('.delete');
+const $modal = document.querySelector('.modal-one');
 const img = document.querySelector('.display .image').firstChild;
-
+const $cancelDelete = document.querySelector('.cancel-delete');
 $photoURL.addEventListener('input', function (event) {
   $img.src = event.target.value;
 });
@@ -119,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
     toggleNoEntries();
   }
 
-  viewSwap('data.view');
+  viewSwap(data.view);
 
   noEntriesParagraph.className = 'has-display-block';
 
@@ -137,8 +138,21 @@ function toggleNoEntries(event) {
   }
 }
 
+var isOpen = false;
+function toggleModal() {
+  isOpen = !isOpen;
+  if (isOpen) {
+    $modal.className = 'modal-one';
+  } else {
+    $modal.className = 'modal-one hidden';
+  }
+}
+$deleteButton.addEventListener('click', toggleModal);
+$cancelDelete.addEventListener('click', toggleModal);
+
 function viewSwap(view) {
   if (view === 'entries') {
+    $deleteButton.className = 'delete';
     $entryForm.style.display = 'none';
     $entriesPage.className = 'entries-desktop';
 
@@ -175,10 +189,3 @@ newEntry.addEventListener('click', function (event) {
   editTitle.textContent = 'New Entry';
   viewSwap('entry-form');
 });
-
-// const newEntry = document.querySelector('.new-entries');
-// newEntry.addEventListener('click', function (event) {
-//   const editTitle = document.querySelector('.new-entry');
-//   editTitle.textContent = 'New Entry';
-//   viewSwap('entry-form');
-// });
