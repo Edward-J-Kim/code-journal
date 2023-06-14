@@ -10,6 +10,7 @@ const imageInput = document.getElementById('image-url');
 const notesInput = document.getElementById('user-notes');
 const entriesLink = document.querySelector('.menu-entries');
 const $deleteButton = document.querySelector('.delete');
+// const $confirmButton = document.querySelector('.confirm-button');
 const $modal = document.querySelector('.modal-one');
 const img = document.querySelector('.display .image').firstChild;
 const $cancelDelete = document.querySelector('.cancel-delete');
@@ -28,6 +29,7 @@ $submitForm.addEventListener('submit', function (event) {
     image,
     notes
   };
+  $submitForm.reset();
 
   if (data.editing === null) {
     newObject.entryId = data.nextEntryId;
@@ -74,9 +76,11 @@ ul.addEventListener('click', function (event) {
   }
 
   populateEntryForm();
+
 });
 
 function renderEntry(entry) {
+
   const uli = document.createElement('li');
   uli.setAttribute('class', 'is-flex');
   uli.setAttribute('data-entry-id', entry.entryId);
@@ -189,3 +193,24 @@ newEntry.addEventListener('click', function (event) {
   editTitle.textContent = 'New Entry';
   viewSwap('entry-form');
 });
+
+// $confirmButton.addEventListener('click', updatedDelete);
+
+// function updatedDelete(event) {
+//   for (let i = 0; i < data.entries.length; i++) {
+//     if (data.entries[i].entryId === data.editing.entryId) {
+//       data.entries.splice(i, 1);
+//     }
+//   }
+//   $modal.className = 'modal-one hidden';
+//   viewSwap('entries');
+
+//   const $ulAll = $ul.document.querySelectrAll('li');
+//   function updateAll(event) {
+//     for (let i = 0; i < $ulAll.length; i++) {
+//       if (i === data.editing.entryId) {
+
+//       }
+//     }
+//   }
+// }
