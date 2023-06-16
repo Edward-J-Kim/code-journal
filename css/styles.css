@@ -54,9 +54,18 @@ img {
   width: 100%;
 }
 
-.button {
+.visibility-hidden {
+  visibility: hidden;
+}
+
+.buttons {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-evenly;
+}
+
+#button-container {
+  display: flex;
+  justify-content: space-between;
 }
 
 .text-div {
@@ -71,7 +80,7 @@ i {
 
 button {
   font-family: "Proza Libre", sans-serif;
-  font-size: 16px;
+  font-size: 10px;
   color: #f0f0f0;
   background: #562b81;
   border-radius: 4px;
@@ -216,4 +225,32 @@ ul {
 
 .has-display-block {
   display: block;
+}
+
+.modal-one {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+  padding: 2rem;
+  background-color: white;
+  border-radius: 0.25rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0 1rem;
+}
+
+.hidden {
+  display: none;
 }
